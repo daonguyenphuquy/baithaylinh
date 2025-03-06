@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống điểm danh khuôn mặt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-user-check"></i> Hệ thống điểm danh sinh viên</h1>
+            <p>Sử dụng công nghệ nhận dạng khuôn mặt</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i> Đăng ký sinh viên</a></li>
+                <li><a href="{{ url_for('attendance') }}"><i class="fas fa-camera"></i> Điểm danh</a></li>
+                <li><a href="{{ url_for('report') }}"><i class="fas fa-chart-bar"></i> Báo cáo</a></li>
+            </ul>
+        </nav>
+
+        <main class="dashboard">
+            <section class="welcome">
+                <h2>Chào mừng đến với hệ thống điểm danh thông minh</h2>
+                <p>Hệ thống điểm danh sử dụng công nghệ nhận dạng khuôn mặt giúp giáo viên và nhà trường quản lý việc điểm danh một cách dễ dàng, chính xác và hiệu quả.</p>
+            </section>
+
+            <div class="feature-cards">
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Đăng ký sinh viên</h3>
+                    <p>Thêm sinh viên mới vào hệ thống với ảnh khuôn mặt để nhận dạng.</p>
+                    <a href="{{ url_for('register') }}" class="btn">Đăng ký ngay</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-camera"></i></div>
+                    <h3>Điểm danh tự động</h3>
+                    <p>Sử dụng camera để nhận dạng và điểm danh sinh viên tự động.</p>
+                    <a href="{{ url_for('attendance') }}" class="btn">Điểm danh</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Báo cáo điểm danh</h3>
+                    <p>Xem và xuất báo cáo điểm danh theo ngày, lớp hoặc sinh viên.</p>
+                    <a href="{{ url_for('report') }}" class="btn">Xem báo cáo</a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; Designed by Dao Nguyen Phu Quy aka P3achnguynx</p>
+        </footer>
+    </div>
+</body>
+</html>

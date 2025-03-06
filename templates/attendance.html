@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm danh - Hệ thống điểm danh khuôn mặt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hệ thống điểm danh sinh viên</h1>
+            <p>Sử dụng công nghệ nhận dạng khuôn mặt</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="/register"><i class="fas fa-user-plus"></i> Đăng ký sinh viên</a></li>
+                <li><a href="/attendance"><i class="fas fa-camera"></i> Điểm danh</a></li>
+                <li><a href="/report"><i class="fas fa-chart-bar"></i> Báo cáo</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <h2><i class="fas fa-camera"></i> Điểm danh bằng khuôn mặt</h2>
+
+            <div class="attendance-container">
+                <div class="camera-container">
+                    <div class="video-feed">
+                        <img src="{{ url_for('video_feed') }}" alt="Video Feed" id="video" style="display: none;">
+                        <div id="camera-placeholder">
+                            <i class="fas fa-camera"></i>
+                            <p>Camera sẽ hiển thị tại đây</p>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button id="start-camera" class="btn btn-primary"><i class="fas fa-video"></i> Bắt đầu camera</button>
+                        <button id="stop-camera" class="btn btn-secondary" disabled><i class="fas fa-stop"></i> Dừng camera</button>
+                    </div>
+                    <div class="camera-controls mt-4">
+                        <button id="take-snapshot" class="btn btn-primary" disabled><i class="fas fa-camera"></i> Chụp ảnh điểm danh</button>
+                    </div>
+                </div>
+
+                <div class="attendance-info">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Hướng dẫn điểm danh</h3>
+                        <ul>
+                            <li>Đảm bảo ánh sáng tốt khi điểm danh</li>
+                            <li>Nhìn thẳng vào camera</li>
+                            <li>Giữ khoảng cách phù hợp với camera</li>
+                            <li>Không đeo kính râm hay khẩu trang</li>
+                            <li>Đứng yên khi hệ thống đang nhận diện</li>
+                            <li>Mỗi sinh viên chỉ được điểm danh 1 lần/ngày</li>
+                        </ul>
+                    </div>
+
+                    <div class="attendance-status">
+                        <h3><i class="fas fa-clock"></i> Thời gian hiện tại</h3>
+                        <div class="current-time" id="current-time">--:--:--</div>
+                        <div class="current-date" id="current-date">--/--/----</div>
+                        <div class="attendance-message" id="attendance-message">Chờ nhận diện khuôn mặt...</div>
+                    </div>
+
+                    <div class="attendance-list-container">
+                        <div class="attendance-list-header">
+                            <h3><i class="fas fa-clipboard-list"></i> Đã điểm danh hôm nay</h3>
+                            <span class="attendance-count" id="attendance-count">{{ today_students|length }}</span>
+                        </div>
+                        <ul id="today-attendance-list">
+                            {% if today_students %}
+                                {% for student in today_students %}
+                                <li>
+                                    <strong>{{ student.name }}</strong> - {{ student.id }}
+                                    <span class="attendance-time">{{ student.time }}</span>
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="empty-list">Chưa có sinh viên nào điểm danh hôm nay</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© Designed by Dao Nguyen Phu Quy aka P3achnguynx</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

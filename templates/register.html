@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký sinh viên - Hệ thống điểm danh khuôn mặt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hệ thống điểm danh sinh viên</h1>
+            <p>Sử dụng công nghệ nhận dạng khuôn mặt</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="/register"><i class="fas fa-user-plus"></i> Đăng ký sinh viên</a></li>
+                <li><a href="/attendance"><i class="fas fa-camera"></i> Điểm danh</a></li>
+                <li><a href="/report"><i class="fas fa-chart-bar"></i> Báo cáo</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section class="register-section">
+                <h2><i class="fas fa-user-plus"></i> Đăng ký sinh viên mới</h2>
+
+                {% if message %}
+                    <div class="alert {% if message_type == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endif %}
+
+                <div class="form-container">
+                    <form class="register-form" action="/register" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="student_id">Mã sinh viên:</label>
+                            <input type="text" id="student_id" name="student_id" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="student_name">Họ và tên:</label>
+                            <input type="text" id="student_name" name="student_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="student_class">Lớp:</label>
+                            <input type="text" id="student_class" name="student_class" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ảnh khuôn mặt:</label>
+
+                            <!-- Nút chuyển đổi giữa chế độ tải file và chụp ảnh -->
+                            <button type="button" id="toggle-capture" class="btn btn-secondary">Sử dụng camera</button>
+
+                            <!-- Container cho camera chụp ảnh -->
+                            <div id="capture-container" class="capture-container">
+                                <video id="capture-video" autoplay playsinline></video>
+                                <img id="capture-preview" style="display: none;">
+                                <canvas id="capture-canvas" style="display: none;"></canvas>
+
+                                <div class="capture-buttons">
+                                    <button type="button" id="start-capture" class="btn btn-primary"><i class="fas fa-camera"></i> Khởi động camera</button>
+                                    <div id="capture-controls" style="display: none;" class="capture-buttons">
+                                        <button type="button" id="capture-button" class="btn btn-primary"><i class="fas fa-camera"></i> Chụp ảnh</button>
+                                        <button type="button" id="retake-photo" class="btn btn-secondary" style="display: none;"><i class="fas fa-redo"></i> Chụp lại</button>
+                                        <button type="button" id="use-photo" class="btn btn-primary" style="display: none;"><i class="fas fa-check"></i> Sử dụng ảnh này</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Container cho tải file -->
+                            <div class="file-input-container" id="file-input-container">
+                                <input type="file" id="student_image" name="student_image" class="file-input" accept="image/jpeg, image/jpg, image/png">
+                                <label for="student_image" class="file-label"><i class="fas fa-upload"></i> Chọn ảnh</label>
+                                <span id="file-name">Chưa có ảnh nào được chọn</span>
+                            </div>
+                        </div>
+
+                        <div class="image-preview-container">
+                            <img id="image-preview" style="display: none;">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Đăng ký</button>
+                            <button type="reset" class="btn btn-secondary"><i class="fas fa-redo"></i> Làm mới</button>
+                        </div>
+                    </form>
+
+                    <div class="instructions">
+                        <h3><i class="fas fa-info-circle"></i> Hướng dẫn</h3>
+                        <ul>
+                            <li>Chọn ảnh chụp rõ mặt, ánh sáng tốt</li>
+                            <li>Ảnh chỉ nên có 1 khuôn mặt</li>
+                            <li>Nên nhìn thẳng vào camera</li>
+                            <li>Tránh đeo kính râm, mũ hoặc khẩu trang</li>
+                            <li>Định dạng ảnh: JPEG, PNG, JPG</li>
+                            <li>Kích thước ảnh tối đa: 5MB</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© Designed by Dao Nguyen Phu Quy aka P3achnguynx</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
